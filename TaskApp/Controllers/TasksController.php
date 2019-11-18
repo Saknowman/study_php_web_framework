@@ -11,7 +11,13 @@ class TasksController extends Controller
 {
     public function index($params)
     {
-        return new Response("This is index of task controller. <br> name: " . $params['name']);
+        return $this->render('tasks/index');
+    }
+
+    public function detail($params)
+    {
+        $data = ['title' => 'Create web framework.', 'status' => 'DOING'];
+        return $this->render('tasks/detail', $data);
     }
 
 }

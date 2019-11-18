@@ -43,9 +43,8 @@ class Project
     private function _selectController()
     {
         $controller = new TasksController();
-        $action = 'index';
-        $params = ['name' => 'John'];
-        return [$controller, $action, $params];
+        $action = 'detail';
+        return [$controller, $action, []];
     }
 
     private function _actionController(Controller $controller, string $action, array $params)
