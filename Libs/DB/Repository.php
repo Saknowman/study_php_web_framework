@@ -46,6 +46,27 @@ class Repository
         $this->execute($sql, $params);
     }
 
+    public function update(Entity $entity)
+    {
+        $sql = "update {$this->_table_name} set ";
+        $params = [];
+        foreach ($this->_columns() as $column) {
+            $key = $this->_to_param($column);
+            $sql .= " {$column} = {$key},";
+            $params[$key] = $entity->$column;
+        }
+        $sql = rtrim($sql, ',');
+        $sql .= " where id = :id";
+        $params[':id'] = $entity->id;
+        $this->execute($sql, $params);
+    }
+
+    public function delete($id)
+    {
+        $sql = "delete from {$this->_table_name} where id = :id";
+        $this->execute($sql, [':id' => $id]);
+    }
+
     public function execute($sql, $params = [])
     {
         $query = $this->_connection->prepare($sql);

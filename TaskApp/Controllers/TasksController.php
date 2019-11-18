@@ -48,4 +48,30 @@ class TasksController extends Controller
         return $this->redirect('/tasks/');
     }
 
+    public function edit($params)
+    {
+        $task = $this->_repository->get($params['id']);
+        if(is_null($task))
+            return $this->render404();
+        return $this->render('tasks/edit', ['task' => $task]);
+    }
+
+    public function update($params){
+        $task = $this->_repository->get($params['id']);
+        if(is_null($task))
+            return $this->render404();
+
+        $task->title = $this->_request->post('title');
+        $task->status = $this->_request->post('status');
+
+        $this->_repository->update($task);
+        return $this->redirect('/tasks/' . $params['id']);
+    }
+
+    public function delete($params){
+        $this->_repository->delete($params['id']);
+
+        return $this->redirect('/tasks/');
+    }
+
 }

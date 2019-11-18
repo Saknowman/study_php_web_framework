@@ -19,5 +19,12 @@
         Status: <?php $escape($task->status) ?>
     </li>
 </ul>
+
+<a href="/tasks/<?php $escape($task->id) ?>/edit">EDIT</a>
+
+<form action="/tasks/<?php $escape($task->id) ?>" method="POST">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="submit" value="DELETE">
+</form>
 </body>
 </html>
