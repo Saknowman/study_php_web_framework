@@ -4,9 +4,11 @@
 namespace Libs;
 
 
+use Libs\Controllers\Controller;
 use Libs\Https\Request;
 use Libs\Https\Response;
 use Libs\Https\Status;
+use TaskApp\Controllers\TasksController;
 
 /**
  * Class Project
@@ -33,7 +35,21 @@ class Project
 
     public function run()
     {
-        $response = new Response($this->_request->pathInfo());
+        list($controller, $action, $params) = $this->_selectController();
+        $response = $this->_actionController($controller, $action, $params);
         $response->send();
+    }
+
+    private function _selectController()
+    {
+        $controller = new TasksController();
+        $action = 'index';
+        $params = ['name' => 'John'];
+        return [$controller, $action, $params];
+    }
+
+    private function _actionController(Controller $controller, string $action, array $params)
+    {
+        return $controller->run($action, $params);
     }
 }
