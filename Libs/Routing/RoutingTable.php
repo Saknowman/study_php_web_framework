@@ -88,9 +88,52 @@ class RoutingTable
     private function _pickBranch($branch, $piece, &$params)
     {
         if (empty($branch[$piece])) {
-            return null;
+            list($real_piece, $params) = $this->_pickIntParam($branch, $piece, $params);
+            if($real_piece === false){
+                list($real_piece, $params) = $this->_pickStrParam($branch, $piece, $params);
+            }
+            if($real_piece === false)
+                return null;
+            $piece = $real_piece;
         }
         $result = $branch[$piece];
         return $result;
+    }
+
+    /**
+     * @param $branch
+     * @param $piece
+     * @param $params
+     * @return array
+     */
+    private function _pickIntParam($branch, $piece, $params)
+    {
+        return $this->_pickParam($branch, $piece, $params, '/^\d+$/', 'int');
+    }
+
+    private function _pickStrParam($branch, $piece, $params)
+    {
+        return $this->_pickParam($branch, $piece, $params, '/^.+$/', 'str');
+    }
+
+    /**
+     * @param $branch
+     * @param $piece
+     * @param $params
+     * @param $value_pattern
+     * @param $value_type
+     * @return array
+     */
+    private function _pickParam($branch, $piece, $params, $value_pattern, $value_type){
+        if (preg_match($value_pattern, $piece)) {
+            foreach (array_keys($branch) as $key) {
+                if (preg_match('/' . $value_type . ':(.+)/', $key, $matches)) {
+                    $params[$matches[1]] = $piece;
+                    $piece = $key;
+                    return [$piece, $params];
+                }
+            }
+        }
+        return [false, false];
     }
 }
