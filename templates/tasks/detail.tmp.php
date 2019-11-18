@@ -12,6 +12,9 @@
 
 <ul>
     <li>
+        ID: <?php $escape($id) ?>
+    </li>
+    <li>
         Title: <?php $escape($title) ?>
     </li>
     <li>

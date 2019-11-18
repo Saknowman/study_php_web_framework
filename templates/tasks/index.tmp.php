@@ -9,6 +9,7 @@
 </head>
 <body>
 <h1>Tasks</h1>
-This is tasks index page from template.
+This is tasks index page from template.<br>
+Name: <?php $escape($name) ?>
 </body>
 </html>
