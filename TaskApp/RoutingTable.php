@@ -9,7 +9,7 @@ use TaskApp\Controllers\TasksController;
 class RoutingTable extends \Libs\Routing\RoutingTable
 {
     protected array $urlPatterns = [
-        ['str:name', 'GET', TasksController::class, 'index'],
-        ['detail/int:id', 'GET', TasksController::class, 'detail'],
+        ['', 'GET', TasksController::class, 'index'],
+        ['int:id', 'GET', TasksController::class, 'detail'],
     ];
 }

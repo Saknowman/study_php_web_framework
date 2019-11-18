@@ -8,17 +8,15 @@
     <title>Document</title>
 </head>
 <body>
-<h2>Tasks Detail Page from Template.</h2>
+<h2>Tasks Detail</h2>
 
+<a href="/tasks/">Back to list</a>
 <ul>
     <li>
-        ID: <?php $escape($id) ?>
+        Title: <?php $escape($task->title) ?>
     </li>
     <li>
-        Title: <?php $escape($title) ?>
-    </li>
-    <li>
-        Status: <?php $escape($status) ?>
+        Status: <?php $escape($task->status) ?>
     </li>
 </ul>
 </body>
