@@ -18,5 +18,8 @@
         </li>
     <?php } ?>
 </ul>
+
+<a href="/tasks/create">Add</a>
+
 </body>
 </html>

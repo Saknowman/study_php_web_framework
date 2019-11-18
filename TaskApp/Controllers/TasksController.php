@@ -7,6 +7,7 @@ namespace TaskApp\Controllers;
 use Libs\Controllers\Controller;
 use Libs\DB\DBManager;
 use Libs\Https\Response;
+use TaskApp\Entities\Task;
 
 class TasksController extends Controller
 {
@@ -31,6 +32,20 @@ class TasksController extends Controller
     {
         $data = ['task' => $this->_repository->get($params['id'])];
         return $this->render('tasks/detail', $data);
+    }
+
+    public function create($params)
+    {
+        return $this->render('tasks/create');
+    }
+
+    public function store($params)
+    {
+        $task = new Task();
+        $task->title = $this->_request->post('title');
+        $task->status = $this->_request->post('status');
+        $this->_repository->insert($task);
+        return $this->redirect('/tasks/');
     }
 
 }
