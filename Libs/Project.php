@@ -4,7 +4,9 @@
 namespace Libs;
 
 
+use Libs\Https\Request;
 use Libs\Https\Response;
+use Libs\Https\Status;
 
 /**
  * Class Project
@@ -13,9 +15,11 @@ use Libs\Https\Response;
 class Project
 {
     private static Project $_instance;
+    private Request $_request;
 
     private function __construct()
     {
+        $this->_request = Request::instance();
     }
 
     public static function instance()
@@ -29,7 +33,7 @@ class Project
 
     public function run()
     {
-        $response = new Response('This is content of response.');
+        $response = new Response($this->_request->pathInfo());
         $response->send();
     }
 }
