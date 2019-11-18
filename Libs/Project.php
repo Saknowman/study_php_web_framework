@@ -6,6 +6,7 @@ namespace Libs;
 
 use Config\ProjectSettings;
 use Libs\Controllers\Controller;
+use Libs\DB\DBManager;
 use Libs\Https\Request;
 use Libs\Https\Response;
 use Libs\Https\Status;
@@ -27,6 +28,7 @@ class Project
 
     private function __construct()
     {
+        DBManager::instance();
         $this->_request = Request::instance();
         $this->_router = new Router(ProjectSettings::ROUTING_TABLE_CLASSES);
     }

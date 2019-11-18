@@ -9,7 +9,17 @@
 </head>
 <body>
 <h1>Tasks</h1>
-This is tasks index page from template.<br>
-Name: <?php $escape($name) ?>
+<ul>
+    <?php foreach ($tasks as $task){?>
+        <li>
+            <a href="/tasks/<?php $escape($task->id) ?>">
+                <?php $escape($task->title) ?> : <?php $escape($task->status) ?>
+            </a>
+        </li>
+    <?php } ?>
+</ul>
+
+<a href="/tasks/create">Add</a>
+
 </body>
 </html>

@@ -8,18 +8,23 @@
     <title>Document</title>
 </head>
 <body>
-<h2>Tasks Detail Page from Template.</h2>
+<h2>Tasks Detail</h2>
 
+<a href="/tasks/">Back to list</a>
 <ul>
     <li>
-        ID: <?php $escape($id) ?>
+        Title: <?php $escape($task->title) ?>
     </li>
     <li>
-        Title: <?php $escape($title) ?>
-    </li>
-    <li>
-        Status: <?php $escape($status) ?>
+        Status: <?php $escape($task->status) ?>
     </li>
 </ul>
+
+<a href="/tasks/<?php $escape($task->id) ?>/edit">EDIT</a>
+
+<form action="/tasks/<?php $escape($task->id) ?>" method="POST">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="submit" value="DELETE">
+</form>
 </body>
 </html>
