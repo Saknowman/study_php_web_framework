@@ -15,5 +15,9 @@ class ProjectSettings
         TaskApplication::class
     ];
 
+    public const ROUTING_TABLE_CLASSES = [
+        ['/^tasks\//', \TaskApp\RoutingTable::class],
+    ];
+
     public const NOT_FOUND_CONTROLLER = NotFoundController::class;
 }
