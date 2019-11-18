@@ -4,6 +4,8 @@
 namespace Libs;
 
 
+use Libs\Https\Response;
+
 /**
  * Class Project
  * @package Libs
@@ -11,6 +13,10 @@ namespace Libs;
 class Project
 {
     private static Project $_instance;
+
+    private function __construct()
+    {
+    }
 
     public static function instance()
     {
@@ -23,6 +29,7 @@ class Project
 
     public function run()
     {
-        echo "Project running.";
+        $response = new Response('This is content of response.');
+        $response->send();
     }
 }
