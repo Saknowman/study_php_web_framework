@@ -16,6 +16,7 @@ class ProjectSettings
     ];
 
     public const ROUTING_TABLE_CLASSES = [
+        ['/^auth\//', \Libs\Apps\Auth\RoutingTable::class],
         ['/^tasks\//', \TaskApp\RoutingTable::class],
     ];
 
