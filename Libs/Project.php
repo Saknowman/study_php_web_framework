@@ -10,6 +10,7 @@ use Libs\DB\DBManager;
 use Libs\Https\Request;
 use Libs\Https\Response;
 use Libs\Https\Status;
+use Libs\Middleware\MiddlewareManager;
 use Libs\Routing\Router;
 use TaskApp\Controllers\TasksController;
 
@@ -21,16 +22,16 @@ class Project
 {
     private static Project $_instance;
     private Request $_request;
-    /**
-     * @var Router
-     */
     private Router $_router;
+    private MiddlewareManager $middleware_manager;
 
     private function __construct()
     {
         DBManager::instance();
         $this->_request = Request::instance();
         $this->_router = new Router(ProjectSettings::ROUTING_TABLE_CLASSES);
+        $this->middleware_manager = new MiddlewareManager(ProjectSettings::MIDDLEWARE);
+
     }
 
     public static function instance()
@@ -44,15 +45,21 @@ class Project
 
     public function run()
     {
+        $result = $this->middleware_manager->processRequest($this->_request);
+        if ($result instanceof Response) {
+            $result->send();
+            return;
+        }
         list($controller, $action, $params) = $this->_selectController();
         $response = $this->_actionController($controller, $action, $params);
+        $response = $this->middleware_manager->processResponse($response);
         $response->send();
     }
 
     private function _selectController()
     {
         $result = $this->_router->resolve($this->_request);
-        if (is_null($result)){
+        if (is_null($result)) {
             $controller = ProjectSettings::NOT_FOUND_CONTROLLER;
             return [new $controller(), 'index', []];
         }
