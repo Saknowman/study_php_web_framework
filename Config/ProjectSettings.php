@@ -15,6 +15,11 @@ class ProjectSettings
         TaskApplication::class
     ];
 
+    public const MIDDLEWARE = [
+        \TaskApp\Middleware\MiddlewareA::class,
+        \TaskApp\Middleware\MiddlewareB::class,
+    ];
+
     public const ROUTING_TABLE_CLASSES = [
         ['/^auth\//', \Libs\Apps\Auth\RoutingTable::class],
         ['/^tasks\//', \TaskApp\RoutingTable::class],
