@@ -16,8 +16,6 @@ class ProjectSettings
     ];
 
     public const MIDDLEWARE = [
-        \TaskApp\Middleware\MiddlewareA::class,
-        \TaskApp\Middleware\MiddlewareB::class,
     ];
 
     public const ROUTING_TABLE_CLASSES = [
