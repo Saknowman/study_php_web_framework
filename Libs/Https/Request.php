@@ -8,6 +8,7 @@ class Request
 {
     private static Request $instance;
     private array $headers;
+    public $user = null;
 
     private function __construct()
     {

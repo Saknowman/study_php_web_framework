@@ -16,7 +16,7 @@ class UserController extends Controller
             return $this->redirect('/auth/login');
         return $this->render(
             'auth/my_page',
-            ['user' => UsersService::getLoginUser()]);
+            ['user' => $this->_request->user]);
     }
 
     public function signUpForm($params)
