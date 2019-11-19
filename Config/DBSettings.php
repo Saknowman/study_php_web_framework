@@ -25,6 +25,12 @@ class DBSettings
     public const REPOSITORIES_TABLE =
         [
             [
+                'key' => "users",
+                'table_name' => 'users',
+                'entity' => User::class,
+                "repository" => UsersRepository::class
+            ],
+            [
                 'key' => "tasks",
                 'table_name' => 'tasks',
                 'entity' => Task::class,
