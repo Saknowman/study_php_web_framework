@@ -7,6 +7,7 @@ namespace TaskApp\Controllers;
 use Libs\Controllers\Controller;
 use Libs\DB\DBManager;
 use Libs\Https\Response;
+use Libs\Https\Session;
 use TaskApp\Entities\Task;
 
 class TasksController extends Controller
@@ -24,6 +25,8 @@ class TasksController extends Controller
 
     public function index($params)
     {
+        echo Session::instance()->get('task_id');
+
         $data = ['tasks' => $this->_repository->all()];
         return $this->render('tasks/index', $data);
     }
@@ -31,6 +34,8 @@ class TasksController extends Controller
     public function detail($params)
     {
         $data = ['task' => $this->_repository->get($params['id'])];
+        Session::instance()->set('task_id', $params['id']);
+        Session::instance()->regenerate();
         return $this->render('tasks/detail', $data);
     }
 
