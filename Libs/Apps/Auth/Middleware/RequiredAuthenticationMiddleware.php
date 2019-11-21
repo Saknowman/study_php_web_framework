@@ -7,7 +7,7 @@ namespace Libs\Apps\Auth\Middleware;
 use Libs\Https\Request;
 use Libs\Https\Response;
 use Libs\Middleware\BaseMiddleware;
-use Libs\Apps\Auth\Services\UsersService;
+use Libs\Apps\Auth\Services\AuthService;
 
 class RequiredAuthenticationMiddleware extends BaseMiddleware
 {
@@ -21,7 +21,7 @@ class RequiredAuthenticationMiddleware extends BaseMiddleware
 
     public function processRequest(Request $request)
     {
-        if (UsersService::isAuthenticated())
+        if (AuthService::isAuthenticated())
             return $request;
         foreach ($this->_ignore_url_patterns as $ignore_url_pattern) {
             if (preg_match($ignore_url_pattern, $request->pathInfo()))

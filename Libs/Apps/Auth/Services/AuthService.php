@@ -8,7 +8,7 @@ use Libs\DB\DBManager;
 use Libs\Https\Session;
 use Libs\Apps\Auth\Entities\User;
 
-class UsersService
+class AuthService
 {
     const AUTHENTICATED_KEY = '_authenticated';
     const AUTH_ID_KEY = '_auth_id';
