@@ -9,6 +9,11 @@ use Libs\Apps\Auth\Entities\User;
 
 class UsersRepository extends Repository
 {
+    protected function entityClass()
+    {
+        return User::class;
+    }
+
     public function isUniqueName($name)
     {
         $users = $this->where('name', '=', $name);

@@ -66,7 +66,6 @@ class DBManager
         foreach(DBSettings::REPOSITORIES_TABLE as $repo_table){
             $repo = new $repo_table['repository'](
                 $repo_table['table_name'],
-                $repo_table['entity'],
                 $this->connection);
             $repositories[$repo_table['key']] = $repo;
         }

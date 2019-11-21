@@ -10,11 +10,23 @@ class Repository
     protected \PDO $_connection;
     private string $_entity_class;
 
-    public function __construct($table_name, $entity_class, \PDO $connection)
+    /**
+     * Override this method to return entity class of repository.
+     * @return null
+     */
+    protected function entityClass()
+    {
+        return null;
+    }
+
+    public function __construct($table_name, \PDO $connection, $entity_class = null)
     {
         $this->_table_name = $table_name;
         $this->_connection = $connection;
-        $this->_entity_class = $entity_class;
+        $this->_entity_class = is_null($entity_class) ? $this->entityClass() : $entity_class;
+        if (is_null($this->_entity_class)) {
+            throw new \InvalidArgumentException('$this->entity_class is required not string.');
+        }
     }
 
     public function all()
@@ -29,7 +41,8 @@ class Repository
         return empty($result[0]) ? null : $result[0];
     }
 
-    public function where($column, $operator, $value){
+    public function where($column, $operator, $value)
+    {
         $sql = "select * from {$this->_table_name} where {$column} {$operator} :value";
         return $this->fetchAll($sql, [':value' => $value]);
     }

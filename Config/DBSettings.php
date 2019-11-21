@@ -27,13 +27,11 @@ class DBSettings
             [
                 'key' => "users",
                 'table_name' => 'users',
-                'entity' => User::class,
                 "repository" => UsersRepository::class
             ],
             [
                 'key' => "tasks",
                 'table_name' => 'tasks',
-                'entity' => Task::class,
                 "repository" => TasksRepository::class
             ],
         ];
